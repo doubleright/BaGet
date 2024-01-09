@@ -14,6 +14,8 @@ namespace BaGet
     {
         public static async Task Main(string[] args)
         {
+            System.IO.Directory.SetCurrentDirectory(System.AppDomain.CurrentDomain.BaseDirectory);//setting base dir
+
             var host = CreateHostBuilder(args).Build();
             if (!host.ValidateStartupOptions())
             {
@@ -59,6 +61,8 @@ namespace BaGet
         {
             return Host
                 .CreateDefaultBuilder(args)
+                .UseWindowsService()
+                .UseSystemd()
                 .ConfigureAppConfiguration((ctx, config) =>
                 {
                     var root = Environment.GetEnvironmentVariable("BAGET_CONFIG_ROOT");
